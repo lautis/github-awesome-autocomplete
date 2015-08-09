@@ -11,10 +11,12 @@
   function storageSet(key, value) {
     if (firefox) {
       self.port.emit('update-storage', [key, value]);
-    } else {
+    } else if (typeof chrome !== 'undefined') {
       var v = {};
       v[key] = value;
       chrome.storage.local.set(v);
+    } else {
+      window.localStorage.setItem(key, value);
     }
   }
 
@@ -22,8 +24,10 @@
     if (firefox) {
       self.port.emit('read-storage');
       cb(simpleStorage);
-    } else {
+    } else if (typeof chrome !== 'undefined') {
       chrome.storage.local.get(key, cb);
+    } else {
+      cb(window.localStorage.getItem(key));
     }
   }
 
@@ -36,8 +40,10 @@
       } else {
         return asset;
       }
-    } else {
+    } else if (typeof chrome !== 'undefined') {
       return chrome.extension.getURL(asset);
+    } else {
+      return '../' + asset;
     }
   }
 
