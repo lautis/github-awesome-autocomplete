@@ -83,6 +83,8 @@ When developing, write unit-tests, use `dev` Grunt task to check that your JS co
 
 When ready to try out the extension in the browser, use default Grunt task to build it. In `build` directory you'll find develop version of the extension in `unpacked-dev` subdirectory (with source maps), and production (uglified) version in `unpacked-prod` directory. The `.crx` packed version is created from `unpacked-prod` sources. The `xpi` archive is created from `build/firefox`.
 
+Safari version of the extension can be found `github-awesome-autocomplete.safariextension`. This is not a fully packed extension, but can be installed and packed in Safari [Extension Builder](https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html) if you are a registered Safari developer.
+
 ### Grunt tasks
 
 * `clean`: clean `build` directory
