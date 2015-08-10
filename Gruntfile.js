@@ -18,10 +18,10 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
-    clean: ['build/unpacked-dev', 'build/unpacked-prod', 'build/*.crx'],
+    clean: ['build/unpacked-dev', 'build/unpacked-prod', 'build/*.crx', 'build/*.safariextension'],
 
     mkdir: {
-      unpacked: { options: { create: ['build/unpacked-dev', 'build/unpacked-prod'] } },
+      unpacked: { options: { create: ['build/unpacked-dev', 'build/unpacked-prod', 'build/github-awesome-autocomplete.safariextension'] } },
       js: { options: { create: ['build/unpacked-dev/js'] } }
     },
 
@@ -37,6 +37,12 @@ module.exports = function(grunt) {
         cwd: 'code/',
         src: ['**', '!js/**', '!**/*.md'],
         dest: 'build/unpacked-dev/'
+      } ] },
+      safari: { files: [ {
+        expand: true,
+        cwd: 'build/unpacked-dev/',
+        src: ['**'],
+        dest: 'build/github-awesome-autocomplete.safariextension'
       } ] },
       prod: { files: [ {
         expand: true,
@@ -171,6 +177,6 @@ module.exports = function(grunt) {
   //
 
   grunt.registerTask('default', ['clean', 'test', 'sass', 'mkdir:unpacked', 'copy:main', 'chrome-manifest', 'firefox-package',
-    'mkdir:js', 'browserify', 'copy:prod', 'uglify', 'exec']);
+    'mkdir:js', 'browserify', 'copy:prod', 'copy:safari', 'uglify', 'exec']);
 
 };

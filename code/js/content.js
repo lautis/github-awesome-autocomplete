@@ -1,4 +1,4 @@
-/* global document, window, location, screen, self */
+/* global document, window, location, screen, self, safari */
 
 ;(function() {
   var algoliasearch = require('algoliasearch');
@@ -137,6 +137,16 @@
       reloadPrivate();
     });
   }
+
+  if (typeof safari !== 'undefined') {
+    safari.self.addEventListener("message", function(message) {
+      if (message.name === 'reload-private') {
+        reloadPrivate();
+      }
+    }, false);
+
+  }
+
   window.clearPrivateKey = function() {
     setupPrivate(null);
     privateAlgolia = privateRepositories = privateIssues = null;
@@ -152,6 +162,7 @@
 
   // connect with GitHub
   window.connectWithGitHub = function() {
+    console.log('OPEN GITHUB?');
     var width = 1050;
     var height = 700;
     var left = (screen.width - width) / 2 - 16;
